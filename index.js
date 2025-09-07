@@ -88,42 +88,44 @@ function spicy(line) {
 }
 const warnings = {
   nonLink: [
-    "*Bloosem laughs: Hun, this ain’t Top Edit Tuesday - bring a link or jog on.*",
-    "*Bloosem smirks: Models strut, creators post, and you… typed? Cute, but no.*",
-    "*Bloosem checks the runway list: nope, no text booked for tonight.*",
-    "*Bloosem drags: even Toci drops links smoother than that mess.*",
-    "*Bloosem side-eyes: Eli would’ve roasted you already - probably after finishing her coffee.*",
-    "*Bloosem snatches your message like it was fake credits bait.*",
-    "*Bloosem whispers: darling, this isn’t a pageant Q&A. Links or leave.*",
-    "*Bloosem raises a brow: giveaways pay in credits, not sentences.*",
-    "*Bloosem deletes it faster than a model dodges free gift DMs.*",
-    "*Bloosem grins: even Toci wouldn’t try posting plain text here.*",
-    "*Bloosem claps: Eli’s backstage laughing at that weak entry while sipping her coffee.*",
+    "_Bloosem laughs: Hun, this ain’t Top Edit Tuesday — bring a link or jog on._",
+    "_Bloosem blocks you harder than a bad catalog copycat._",
+    "_Bloosem smirks: Models strut, creators post, and you… typed? Cute, but no._",
+    "_Bloosem checks the runway list: nope, no text booked for tonight._",
+    "_Bloosem drags: even Toci drops links smoother than that mess._",
+    "_Bloosem side-eyes: Eli would’ve roasted you already — probably after finishing her coffee._",
+    "_Bloosem snatches your message like it was fake credits bait._",
+    "_Bloosem whispers: darling, this isn’t a pageant Q&A. Links or leave._",
+    "_Bloosem raises a brow: giveaways pay in credits, not sentences._",
+    "_Bloosem deletes it faster than a model dodges free gift DMs._",
+    "_Bloosem grins: even Toci wouldn’t try posting plain text here._",
+    "_Bloosem claps: Eli’s backstage laughing at that weak entry while sipping her coffee._"
   ],
 
   linkNotAllowed: [
-    "*Oi, wrong link for this giveaway - Bloosem just bounced it out.*",
-    "*Bloosem spotted a dodgy link. Not today, mate.*",
-    "*This isn’t the right runway - Bloosem’s got you covered.*",
-    "*Bloosem whispers: even Eli knows better than to drop that flop link - and she hasn’t even finished her coffee yet.*",
-    "*Bloosem smirks: Toci would’ve roasted you first, I just finished the job.*",
+    "_Oi, wrong link for this giveaway — Bloosem just bounced it out._",
+    "_Bloosem spotted a dodgy link. Not today, pal._",
+    "_This isn’t the right runway — Bloosem’s got you covered._",
+    "_Bloosem whispers: even Eli knows better than to drop that flop link — and she hasn’t even finished her coffee yet._",
+    "_Bloosem smirks: Toci would’ve roasted you first, I just finished the job._"
   ],
 
   domainBlocked: (domain) => [
-    `*Bloosem side-eyes ${domain}: not on the VIP list, hun. Back to the queue.*`,
-    `*Bloosem stamps REJECTED on ${domain} - this giveaway doesn’t take knock-offs.*`,
-    `*Bloosem smirks: ${domain}? Babe, that ain’t couture, that’s clearance.*`,
-    `*Bloosem cackles: ${domain} tried the velvet rope - denied harder than a spam wishlist.*`,
-    `*Bloosem chuckles: ${domain}? Even Toci wouldn’t get caught posting that flop.*`,
-    `*Bloosem whispers: ${domain}? Cute, but Eli’s already rolling her eyes at you while sipping her coffee.*`,
-    `*Bloosem raises an eyebrow: ${domain}? Hun, I bounce harder than Toci’s clapbacks.*`,
-    `*Bloosem laughs: ${domain}? Eli says nope, and I double it.*`,
-  ],
+    `_Bloosem side-eyes ${domain}: not on the VIP list, hun. Back to the queue._`,
+    `_Bloosem stamps REJECTED on ${domain} — this giveaway doesn’t take knock-offs._`,
+    `_Bloosem rolls her eyes: ${domain}? That’s about as useful as an empty wishlist._`,
+    `_Bloosem cackles: ${domain} tried the velvet rope — denied harder than a spam wishlist._`,
+    `_Bloosem chuckles: ${domain}? Even Toci wouldn’t get caught posting that flop._`,
+    `_Bloosem whispers: ${domain}? Cute, but Eli’s already rolling her eyes at you while sipping her coffee._`,
+    `_Bloosem raises an eyebrow: ${domain}? Hun, I bounce harder than Toci’s clapbacks._`,
+    `_Bloosem laughs: ${domain}? Eli says nope, and I double it._`
+  ]
 };
 
 function pick(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
+
 
 // ---------- Discord client ----------
 const client = new Client({
