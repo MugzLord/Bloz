@@ -1,0 +1,25 @@
+{
+  "name": "bloz-bot",
+  "version": "1.0.0",
+  "description": "Bloz - Discord bot that acts like Bloosem the bouncer, moderating links with banter.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "bloz",
+    "moderation",
+    "link-filter"
+  ],
+  "author": "MugzLord",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.15.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
