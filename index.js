@@ -89,24 +89,23 @@ function spicy(line) {
 const warnings = {
   nonLink: [
     "*Bloosem laughs: Hun, this ain’t Top Edit Tuesday - bring a link or jog on.*",
-    "*Bloosem blocks you harder than a bad catalog copycat.*",
     "*Bloosem smirks: Models strut, creators post, and you… typed? Cute, but no.*",
     "*Bloosem checks the runway list: nope, no text booked for tonight.*",
     "*Bloosem drags: even Toci drops links smoother than that mess.*",
-    "*Bloosem side-eyes: Eli would’ve roasted you already - probably after finishing his coffee.*",
+    "*Bloosem side-eyes: Eli would’ve roasted you already - probably after finishing her coffee.*",
     "*Bloosem snatches your message like it was fake credits bait.*",
     "*Bloosem whispers: darling, this isn’t a pageant Q&A. Links or leave.*",
     "*Bloosem raises a brow: giveaways pay in credits, not sentences.*",
     "*Bloosem deletes it faster than a model dodges free gift DMs.*",
     "*Bloosem grins: even Toci wouldn’t try posting plain text here.*",
-    "*Bloosem claps: Eli’s backstage laughing at that weak entry while sipping his coffee.*",
+    "*Bloosem claps: Eli’s backstage laughing at that weak entry while sipping her coffee.*",
   ],
 
   linkNotAllowed: [
     "*Oi, wrong link for this giveaway - Bloosem just bounced it out.*",
-    "*Bloosem spotted a dodgy link. Not today, pal.*",
+    "*Bloosem spotted a dodgy link. Not today, mate.*",
     "*This isn’t the right runway - Bloosem’s got you covered.*",
-    "*Bloosem whispers: even Eli knows better than to drop that flop link - and he hasn’t even finished his coffee yet.*",
+    "*Bloosem whispers: even Eli knows better than to drop that flop link - and she hasn’t even finished her coffee yet.*",
     "*Bloosem smirks: Toci would’ve roasted you first, I just finished the job.*",
   ],
 
@@ -116,7 +115,7 @@ const warnings = {
     `*Bloosem smirks: ${domain}? Babe, that ain’t couture, that’s clearance.*`,
     `*Bloosem cackles: ${domain} tried the velvet rope - denied harder than a spam wishlist.*`,
     `*Bloosem chuckles: ${domain}? Even Toci wouldn’t get caught posting that flop.*`,
-    `*Bloosem whispers: ${domain}? Cute, but Eli’s already rolling his eyes at you while sipping his coffee.*`,
+    `*Bloosem whispers: ${domain}? Cute, but Eli’s already rolling her eyes at you while sipping her coffee.*`,
     `*Bloosem raises an eyebrow: ${domain}? Hun, I bounce harder than Toci’s clapbacks.*`,
     `*Bloosem laughs: ${domain}? Eli says nope, and I double it.*`,
   ],
