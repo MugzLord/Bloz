@@ -180,7 +180,13 @@ const cmds = [
   
   new SlashCommandBuilder()
   .setName("cleanup")
-  .setDescription("Delete recent non-Instagram messages")
+  .setDescription("Delete recent messages that don’t match the link-only rules")
+  .addIntegerOption(o =>
+    o.setName("limit")
+     .setDescription("How many recent messages to scan (max 100)")
+     .setMinValue(1)
+     .setMaxValue(100)
+  )
   .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
  
   new SlashCommandBuilder()
@@ -335,22 +341,52 @@ client.on("interactionCreate", async (i) => {
       }
 
       case "cleanup": {
-        const channel = interaction.channel;
-        await interaction.deferReply({ ephemeral: true });
+        try {
+          // acknowledge immediately so Discord doesn't timeout
+          await i.deferReply({ ephemeral: true });
       
-        const instaRegex = /^https?:\/\/(www\.)?instagram\.com\/[^\s]+$/;
+          const limit = i.options.getInteger("limit") ?? 50;
+          const cfg = gcfg(i.guildId);
       
-        const messages = await channel.messages.fetch({ limit: 50 }); // scan last 50
-        const toDelete = messages.filter(m => !m.author.bot && !instaRegex.test(m.content.trim()));
+          // fetch up to 100 recent messages
+          const fetched = await i.channel.messages.fetch({ limit: Math.min(limit, 100) });
       
-        let deleted = 0;
-        for (const m of toDelete.values()) {
-          try { await m.delete(); deleted++; } catch {}
-        }
+          let deleted = 0;
+          for (const msg of fetched.values()) {
+            if (!msg || msg.author?.bot) continue;
       
-        await interaction.editReply(`🧹 Cleaned **${deleted}** invalid message(s).`);
-        break;
-      }
+            const content = (msg.content || "").trim();
+            const urls = content.match(/https?:\/\/[^\s]+/gi) || [];
+            const onlyOneLink = urls.length === 1 && content === urls[0];
+      
+            // rule: message must be exactly one link and no extra text
+            let bad = !onlyOneLink;
+      
+            // whitelist rule (if configured)
+            if (!bad && cfg.whitelist?.length) {
+              let host = "";
+              try {
+                host = new URL(urls[0]).hostname.replace(/^www\./, "");
+              } catch {}
+              const allowed = cfg.whitelist.some(d => host === d || host.endsWith(`.${d}`));
+              if (!allowed) bad = true;
+            }
+      
+            if (bad) {
+              await msg.delete().catch(() => {}); // ignore items we can't delete
+              deleted++;
+            }
+          }
+
+    await i.editReply(`🧹 Cleaned ${deleted} message(s).`);
+  } catch (err) {
+    console.error("cleanup error:", err);
+    // Show a helpful reason if it's permissions
+    await i.editReply("⚠️ Couldn’t complete cleanup. Check that Bloz has **Manage Messages** and **Read Message History** in this channel.");
+  }
+  break;
+}
+
   
       case "bypass": {
         const action = i.options.getString("action", true);
