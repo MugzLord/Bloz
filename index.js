@@ -245,18 +245,17 @@ client.on("messageCreate", async (message) => {
     const channelMode = cfg.channels[message.channel.id] || "off";
     if (channelMode === "off") return;
 
-    const content = `${message.content || ""}`.trim();
-    const hasLink = hasUrl(content) || (message.attachments?.size > 0 && [...message.attachments.values()].some(a => /https?:\/\//.test(a.url)));
+    const content = message.content.trim();
+    // Regex: must be exactly ONE Instagram link, nothing else
+    const instaRegex = /^https?:\/\/(www\.)?instagram\.com\/[^\s]+$/;
+    const isInstagramOnly = instaRegex.test(content);
 
-    // Whitelist check (applies only when there's a link)
-    if (hasLink && cfg.whitelist?.length) {
-      const domains = new Set([...extractDomains(content), ...[...message.attachments.values()].map(a => { try { return new URL(a.url).hostname.replace(/^www\./, ""); } catch { return null; } }).filter(Boolean)]);
-      const bad = [...domains].filter(d => !cfg.whitelist.includes(d));
-      if (bad.length) {
-        await safeDelete(message, pick(warnings.domainBlocked(bad[0])));
-        return;
-      }
+
+    if (!isInstagramOnly) {
+      await safeDelete(message, pick(warnings.nonLink));
+      return;
     }
+
 
     if (channelMode === "links-only" && !hasLink) {
       await safeDelete(message, pick(warnings.nonLink));
