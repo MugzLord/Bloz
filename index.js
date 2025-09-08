@@ -177,7 +177,12 @@ const cmds = [
       .setDescription("e.g. youtube.com, discord.gg")
       .setRequired(false))
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
-
+  
+  new SlashCommandBuilder()
+  .setName("cleanup")
+  .setDescription("Delete recent non-Instagram messages")
+  .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
+ 
   new SlashCommandBuilder()
     .setName("bypass")
     .setDescription("Manage bypass roles (members with these roles are ignored by moderation)")
@@ -329,6 +334,24 @@ client.on("interactionCreate", async (i) => {
         break;
       }
 
+      case "cleanup": {
+        const channel = interaction.channel;
+        await interaction.deferReply({ ephemeral: true });
+      
+        const instaRegex = /^https?:\/\/(www\.)?instagram\.com\/[^\s]+$/;
+      
+        const messages = await channel.messages.fetch({ limit: 50 }); // scan last 50
+        const toDelete = messages.filter(m => !m.author.bot && !instaRegex.test(m.content.trim()));
+      
+        let deleted = 0;
+        for (const m of toDelete.values()) {
+          try { await m.delete(); deleted++; } catch {}
+        }
+      
+        await interaction.editReply(`🧹 Cleaned **${deleted}** invalid message(s).`);
+        break;
+      }
+  
       case "bypass": {
         const action = i.options.getString("action", true);
         const role = i.options.getRole("role");
